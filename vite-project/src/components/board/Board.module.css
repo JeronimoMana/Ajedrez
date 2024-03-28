@@ -1,0 +1,9 @@
+.container_board {
+    
+}
+
+.container_board .board_row {
+
+    background-color: aquamarine;
+    display: flex;
+}
