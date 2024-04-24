@@ -1,15 +1,22 @@
 import Box from "./Box";
+//piezas negras
+import aN from "../assets/img/chesspieces/alpha/bB.png"
+import pN from "../assets/img/chesspieces/alpha/bP.png"
+import rN from "../assets/img/chesspieces/alpha/bK.png"
+import dN from "../assets/img/chesspieces/alpha/bQ.png"
+import tN from "../assets/img/chesspieces/alpha/bR.png"
+import cN from "../assets/img/chesspieces/alpha/bN.png"
 
 const Board = () => {
     const BOARD = [
-        [1, 2, 3, 4, 5, 6, 7, 8],  // Fila 0
-        [1, 2, 3, 4, 5, 6, 7, 8],  // Fila 1
+        [tN, cN, aN, dN, rN, aN, cN, tN],  // Fila 0
+        [pN, pN, pN, pN, pN, pN, pN, pN],  // Fila 1
         [1, 2, 3, 4, 5, 6, 7, 8],  // Fila 2
         [1, 2, 3, 4, 5, 6, 7, 8],  // Fila 3
         [1, 2, 3, 4, 5, 6, 7, 8],  // Fila 4
         [1, 2, 3, 4, 5, 6, 7, 8],  // Fila 5
-        [1, 2, 3, 4, 5, 6, 7, 8],  // Fila 6
-        [1, 2, 3, 4, 5, 6, 7, 8]   // Fila 7
+        [pN, pN, pN, pN, pN, pN, pN, pN],  // Fila 6
+        [tN, cN, aN, dN, rN, aN, cN, tN]   // Fila 7
     ]
 
     const EDGES = [
@@ -17,20 +24,21 @@ const Board = () => {
         [1, 2, 3, 4, 5, 6, 7, 8]
     ]
 
-    const renderBox = (key, color, content) => {
-        if (typeof (content) === "number") {
+    const renderBox = (key, color, content, pieza) => {
+        if (typeof (content) === "number" || typeof (content) === "string") {
             return (
                 <>
-                    <Box key={key} color={color} content={content.toString()} />
+                    <Box key={key} color={color} content={content.toString()} pieza={pieza} />
                 </>
-
+            )
+        } else {
+            return (
+                <>
+                    <Box key={key} color={color} pieza={pieza} />
+                </>
             )
         }
-        return (
-            <div>
-                <Box color={color} content={content} />
-            </div>
-        )
+
     }
 
     const renderBoard = () => {
@@ -41,12 +49,16 @@ const Board = () => {
             if (i % 2 === 0) {
                 color = "white"
             } else {
-                color = "black"
+                color = "grey"
             }
             for (let j = 0; j < BOARD.length; j++) {
-                cell.push(renderBox(`${i}-${j}`, color))
+                if (i < 2 || i > 5) {
+                    cell.push(renderBox(`${i}-${j}`, color, null, BOARD[i][j]))
+                } else {
+                    cell.push(renderBox(`${i}-${j}`, color, null, null))
+                }
                 if (color === "white") {
-                    color = "black"
+                    color = "grey"
                 } else {
                     color = "white"
                 }
@@ -61,7 +73,7 @@ const Board = () => {
 
         const cell = [];
         for (let j = 0; j < BOARD.length; j++) {
-            cell.push(renderBox(`0-${j}`, "transparent", EDGES[0][j]));
+            cell.push(renderBox(`0-${j}`, "transparent", EDGES[0][j], null));
         }
         column.push(cell);
         return column;
@@ -72,7 +84,7 @@ const Board = () => {
         const numbers = [...EDGES[1]];
         numbers.reverse();
         const cell = numbers.map((number, index) => (
-            renderBox(`0-${index}`, "transparent", number)
+            renderBox(`0-${index}`, "transparent", number, null)
         ));
         column.push(cell);
         return column;
