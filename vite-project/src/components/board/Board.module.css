@@ -1,9 +1,6 @@
 .container_board {
-    
-}
-
-.container_board .board_row {
-
-    background-color: aquamarine;
+    width: 616px;
+    background-color: aqua;
     display: flex;
+    flex-wrap: wrap;
 }

@@ -2,15 +2,15 @@ import style from "./Box.module.css"
 import PropTypes from 'prop-types';
 
 
-
-const Box = ({ prop }) => {
+const Box = ({ color }) => {
     return (
-        <div className={style.container_box} style={{ backgroundColor: prop }}>
+        <div className={style.container_box} style={{ backgroundColor: color }}>
         </div>
     );
 };
+
 Box.propTypes = {
-    prop: PropTypes.string.isRequired
+    color: PropTypes.string.isRequired 
 };
 
 
